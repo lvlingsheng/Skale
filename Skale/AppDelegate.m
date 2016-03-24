@@ -7,18 +7,42 @@
 //
 
 #import "AppDelegate.h"
-
+#import <Parse/Parse.h>
+//#import "IQSegmentedNextPrevious.h"
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
 
-
+//[IQKeyBoardManager installKeyboardManager];
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    // Override point for customization after application launch.
+    // [Optional] Power your app with Local Datastore. For more info, go to
+    // https://parse.com/docs/ios_guide#localdatastore/iOS
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"iYlR4o27N8J21QDV8Ii6DQeBYaam8jrhnOneRWLD"
+                  clientKey:@"NjnYeqLJBpYSnIyTCXWs4JuvvdZQ2heiLvC0OmSc"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+    }
+    else{
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+    }
     // Override point for customization after application launch.
     return YES;
 }
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
